@@ -1,0 +1,9 @@
+{
+  "name": "fe-next-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fe-next-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["fe-next"],
+  "// targets": "to see all targets run: nx show project fe-next-e2e --web",
+  "targets": {}
+}
