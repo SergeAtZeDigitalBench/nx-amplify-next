@@ -434,7 +434,9 @@ export function cn(...inputs: ClassValue[]) {
 
 - it will add `libs/ui-components/src/components/ui/` directory with `button.tsx` file
 - go to `libs/ui-components/src/components/ui/button.tsx` and update the import utils
-  to `import { cn } from '../../utils';` - still need to tweak this import each time you add a chadcn component
+  to `import { cn } from '../../utils';` - still need to tweak this import each time you add a chadcn component,
+  later you can move this into libs/utils libarary, then update utils alias in `components.json`
+- when you generate the `npx shadcn-ui@latest add...` don't forget to add `'use client'` into the component, if not the next build will fail.;
 
 ##### 😜 it is pretty much set:
 
@@ -442,6 +444,16 @@ export function cn(...inputs: ClassValue[]) {
 - all components are barrel exported from `libs/ui-components/src/index.ts`
 - unit tests for lib components are in `libs/ui-components/__tests__/` directory,
   😜 keep in mind chadcn components don't need to test, if not updated, just test your own code.
+
+### Generate a utils library
+
+Here is the funny part if I generate a library using either `@nx:node` or `@nx:js` - it does generate ok, BUT when I import these
+modules into my next.js application AND try to build - the build fails with weird errors `"Error occurred prerendering page"`.
+
+- so the only way I have managed to have a workable and importable utils library is to generate it with `@nx:next`
+
+1. `nx g @nx/next:lib utils --directory=libs/utils`
+2. then replace the `.tsx` modules by `.ts`
 
 ## Integrate with editors
 

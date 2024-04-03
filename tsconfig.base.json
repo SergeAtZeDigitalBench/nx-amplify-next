@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@nx-amplify-next/ui": ["libs/ui/src/index.ts"],
-      "@nx-amplify-next/ui/server": ["libs/ui/src/server.ts"]
+      "@nx-amplify-next/ui/server": ["libs/ui/src/server.ts"],
+      "@nx-amplify-next/utils": ["libs/utils/src/index.ts"],
+      "@nx-amplify-next/utils/server": ["libs/utils/src/server.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
