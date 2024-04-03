@@ -10,6 +10,6 @@
   },
   "aliases": {
     "components": "@nx-amplify-next/ui/lib",
-    "utils": "@nx-amplify-next/ui/lib/utils"
+    "utils": "@nx-amplify-next/utils"
   }
 }
