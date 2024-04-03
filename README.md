@@ -434,7 +434,9 @@ export function cn(...inputs: ClassValue[]) {
 
 - it will add `libs/ui-components/src/components/ui/` directory with `button.tsx` file
 - go to `libs/ui-components/src/components/ui/button.tsx` and update the import utils
-  to `import { cn } from '../../utils';` - still need to tweak this import each time you add a chadcn component
+  to `import { cn } from '../../utils';` - still need to tweak this import each time you add a chadcn component,
+  later you can move this into libs/utils libarary, then update utils alias in `components.json`
+- when you generate the `npx shadcn-ui@latest add...` don't forget to add `'use client'` into the component, if not the next build will fail.;
 
 ##### 😜 it is pretty much set:
 
