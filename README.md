@@ -443,6 +443,16 @@ export function cn(...inputs: ClassValue[]) {
 - unit tests for lib components are in `libs/ui-components/__tests__/` directory,
   😜 keep in mind chadcn components don't need to test, if not updated, just test your own code.
 
+### Generate a utils library
+
+Here is the funny part if I generate a library using either `@nx:node` or `@nx:js` - it does generate ok, BUT when I import these
+modules into my next.js application AND try to build - the build fails with weird errors `"Error occurred prerendering page"`.
+
+- so the only way I have managed to have a workable and importable utils library is to generate it with `@nx:next`
+
+1. `nx g @nx/next:lib utils --directory=libs/utils`
+2. then replace the `.tsx` modules by `.ts`
+
 ## Integrate with editors
 
 Enhance your Nx experience by installing [Nx Console](https://nx.dev/nx-console) for your favorite editor. Nx Console
