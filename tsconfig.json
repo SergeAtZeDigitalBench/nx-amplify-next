@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@nx-amplify-next/ui/lib": ["libs/ui/src/lib"],
+      "@nx-amplify-next/ui/lib/utils": ["libs/ui/src/lib/utils/index.ts"]
+    }
+  }
+}

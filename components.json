@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": false,
+  "tailwind": {
+    "config": "./tailwind-workspace-preset.js",
+    "css": "apps/fe-next/src/styles/global.css",
+    "baseColor": "stone",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@nx-amplify-next/ui/lib",
+    "utils": "@nx-amplify-next/ui/lib/utils"
+  }
+}
