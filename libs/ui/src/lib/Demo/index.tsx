@@ -1,14 +1,12 @@
-import styles from './ui.module.css';
+export type DemoProps = {
+  greeting?: string;
+};
 
-/* eslint-disable-next-line */
-export interface DemoProps {}
-
-export function Demo(props: DemoProps) {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Ui!</h1>
-    </div>
-  );
-}
+export const Demo = ({ greeting }: DemoProps) => (
+  <div className="flex justify-center items-center gap-2">
+    <h1>Welcome to Ui!</h1>
+    {greeting && <p className="font-semibold text-sm">{greeting}</p>}
+  </div>
+);
 
 export default Demo;
