@@ -14,6 +14,9 @@ const Navigation = (): JSX.Element => {
         <li>
           <Link href="/posts">📑</Link>
         </li>
+        <li>
+          <Link href="/todos">📚</Link>
+        </li>
         <AuthButtons />
       </ul>
     </nav>

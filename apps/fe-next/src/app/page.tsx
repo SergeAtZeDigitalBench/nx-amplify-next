@@ -1,5 +1,8 @@
 import { Demo, Button } from '@nx-amplify-next/ui';
 
+import PetsListSsr from '../components/PetsList/PetsListSsr';
+import PetsList from '../components/PetsList';
+
 const HomePage = () => {
   return (
     <>
@@ -14,6 +17,9 @@ const HomePage = () => {
       >
         ChadCN button
       </Button>
+
+      <PetsListSsr />
+      <PetsList />
     </>
   );
 };
