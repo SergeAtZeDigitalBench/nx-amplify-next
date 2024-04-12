@@ -2,14 +2,21 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 import { getErrorMessage } from '../../lib/common';
 
-const fetchPets = async (): Promise<[string[], null] | [null, string]> => {
+export const fetchPetsSsr = async (): Promise<
+  [string[], null] | [null, string]
+> => {
   try {
-    const res = await fetch('https://api.example.com/pets');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_TO_MOCK}/pets`);
+
+    if (!res.ok) {
+      const errorPayload = (await res.json()) as { error?: string };
+      throw new Error(errorPayload.error || res.statusText);
+    }
+
     const payload = (await res.json()) as { data: string[] };
 
     return [payload.data, null];
   } catch (error) {
-    console.log('server error :>> ', error);
     return [null, getErrorMessage(error)];
   }
 };
@@ -17,7 +24,7 @@ const fetchPets = async (): Promise<[string[], null] | [null, string]> => {
 const PetsListSsr = async () => {
   noStore();
 
-  const [pets, error] = await fetchPets();
+  const [pets, error] = await fetchPetsSsr();
 
   return (
     <div className="p-2 bg-slate-200 rounded-lg my-4 max-w-5xl mx-auto">

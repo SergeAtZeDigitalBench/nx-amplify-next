@@ -4,6 +4,19 @@ import { useState, useEffect } from 'react';
 
 import { getErrorMessage } from '../../lib/common';
 
+export const fetchPetsBrowser = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_TO_MOCK}/pets`);
+
+  if (!res.ok) {
+    const errorPayload = (await res.json()) as { error?: string };
+    throw new Error(errorPayload.error || res.statusText);
+  }
+
+  const payload = (await res.json()) as { data: string[] };
+
+  return payload.data;
+};
+
 const PetsList = (): JSX.Element => {
   const [error, setError] = useState<null | string>(null);
   const [isLoading, setisLoading] = useState<boolean>(false);
@@ -11,29 +24,20 @@ const PetsList = (): JSX.Element => {
 
   useEffect(() => {
     let isMounted = true;
+
     const fetchPets = async () => {
       try {
         setisLoading(true);
         setError(null);
-        const res = await fetch('https://api.example.com/pets', {
-          method: 'GET',
-        });
-
-        if (!res.ok) {
-          const message = await res.json();
-
-          throw new Error(message?.error || res.statusText);
-        }
-
-        const payload = (await res.json()) as { data: string[] };
-
-        isMounted && setPets(payload.data);
+        const res = await fetchPetsBrowser();
+        isMounted && setPets(res);
       } catch (error) {
         isMounted && setError(getErrorMessage(error));
       } finally {
         isMounted && setisLoading(false);
       }
     };
+
     fetchPets();
     return () => {
       isMounted = false;

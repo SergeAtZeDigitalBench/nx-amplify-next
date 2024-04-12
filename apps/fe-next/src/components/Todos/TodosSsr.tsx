@@ -2,21 +2,22 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 import type { Todo } from '../../types';
 
-const fetchTodos = async (): Promise<[Todo[], null] | [null, string]> => {
+import { getErrorMessage } from '../../lib/common';
+
+const fetchTodosSsr = async (): Promise<[Todo[], null] | [null, string]> => {
   try {
-    const res = await fetch('https://jsonplaceholder.typicode.com/todos');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_TO_MOCK}/todos`);
     const payload = (await res.json()) as Todo[];
 
-    return [payload.slice(0, 2), null];
+    return [payload, null];
   } catch (error) {
-    console.log('server error :>> ', error);
-    return [null, 'fetch error'];
+    return [null, getErrorMessage(error, 'fetch error')];
   }
 };
 
 const TodosSsr = async () => {
   noStore();
-  const [data, error] = await fetchTodos();
+  const [data, error] = await fetchTodosSsr();
 
   return (
     <div className="p-2 bg-slate-200 rounded-lg my-4 max-w-5xl mx-auto">

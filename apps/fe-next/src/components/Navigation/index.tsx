@@ -8,14 +8,25 @@ const Navigation = (): JSX.Element => {
       data-testid="Navigation"
       className="flex justify-between items-center max-w-5xl mx-auto text-yellow-200 min-h-[30px]"
     >
-      <Link href="/">🏠</Link>
+      <Link href="/">
+        <span>🏠</span>
+      </Link>
 
       <ul className="flex gap-2">
         <li>
-          <Link href="/posts">📑</Link>
+          <Link href="/posts">
+            <span>📑</span>
+          </Link>
         </li>
         <li>
-          <Link href="/todos">📚</Link>
+          <Link href="/todos">
+            <span>📚</span>
+          </Link>
+        </li>
+        <li>
+          <Link href="/pets">
+            <span>🐱</span>
+          </Link>
         </li>
         <AuthButtons />
       </ul>

@@ -6,15 +6,17 @@ import type { Todo } from '../../types';
 
 import { getErrorMessage } from '../../lib/common';
 
-const fetchTodos = async (): Promise<[Todo[], null] | [null, string]> => {
-  try {
-    const res = await fetch('https://jsonplaceholder.typicode.com/todos');
-    const payload = (await res.json()) as Todo[];
+const fetchTodosBrowser = async (): Promise<Todo[]> => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_TO_MOCK}/todos`);
 
-    return [payload.slice(0, 2), null];
-  } catch (error) {
-    return [null, getErrorMessage(error)];
+  if (!res.ok) {
+    const errorPayload = (await res.json()) as { error?: string };
+    throw new Error(errorPayload.error || res.statusText);
   }
+
+  const payload = (await res.json()) as Todo[];
+
+  return payload;
 };
 
 const useTodos = () => {
@@ -26,13 +28,19 @@ const useTodos = () => {
     let isMounted = true;
 
     setIsLoading(true);
-    fetchTodos().then(([todos, errorMessage]) => {
-      if (isMounted) {
-        setData(todos);
-        setError(errorMessage);
+    fetchTodosBrowser()
+      .then((todos) => {
+        if (isMounted) {
+          setData(todos);
+        }
+      })
+      .catch((err) => {
+        setError(getErrorMessage(err));
+      })
+      .finally(() => {
         setIsLoading(false);
-      }
-    });
+      });
+
     return () => {
       isMounted = false;
     };
