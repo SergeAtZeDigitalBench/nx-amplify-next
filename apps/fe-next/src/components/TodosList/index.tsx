@@ -1,22 +1,23 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { fetchPets } from './helpers';
 
-const PetsList = (): JSX.Element => {
+import { fetchTodos } from './helpers';
+
+const TodosList = (): JSX.Element => {
   const { data, error, isLoading } = useQuery({
-    queryKey: ['pets'],
-    queryFn: fetchPets,
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
   });
 
   return (
     <div className="p-2 bg-slate-200 rounded-lg my-4 max-w-5xl mx-auto">
-      <h2 className="my-4 text-center text-xl font-semibold">Browser fetch</h2>
+      <h2>Client fetch</h2>
 
       <ul className=" list-disc pl-4 my-4">
         {data &&
-          data.map((pet) => {
-            return <li key={pet}>{pet}</li>;
+          data.map((todo) => {
+            return <li key={todo.id}>{todo.title}</li>;
           })}
       </ul>
 
@@ -25,7 +26,6 @@ const PetsList = (): JSX.Element => {
           loading...
         </p>
       )}
-
       {error && (
         <p className="text-center text-sm my-2 font-semibold text-red-700">
           {error.message}
@@ -35,4 +35,4 @@ const PetsList = (): JSX.Element => {
   );
 };
 
-export default PetsList;
+export default TodosList;

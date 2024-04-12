@@ -1,25 +1,6 @@
 import { unstable_noStore as noStore } from 'next/cache';
 
-import { getErrorMessage } from '../../lib/common';
-
-export const fetchPetsSsr = async (): Promise<
-  [string[], null] | [null, string]
-> => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_TO_MOCK}/pets`);
-
-    if (!res.ok) {
-      const errorPayload = (await res.json()) as { error?: string };
-      throw new Error(errorPayload.error || res.statusText);
-    }
-
-    const payload = (await res.json()) as { data: string[] };
-
-    return [payload.data, null];
-  } catch (error) {
-    return [null, getErrorMessage(error)];
-  }
-};
+import { fetchPetsSsr } from './helpers';
 
 const PetsListSsr = async () => {
   noStore();
