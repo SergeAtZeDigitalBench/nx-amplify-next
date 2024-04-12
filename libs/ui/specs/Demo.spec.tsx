@@ -7,6 +7,6 @@ describe('Demo', () => {
   it('should render successfully', () => {
     const { baseElement } = render(<Demo />);
 
-    expect(baseElement).toBeTruthy();
+    expect(baseElement).toBeInTheDocument();
   });
 });
