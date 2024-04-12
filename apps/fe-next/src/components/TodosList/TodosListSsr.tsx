@@ -1,21 +1,8 @@
 import { unstable_noStore as noStore } from 'next/cache';
 
-import type { Todo } from '../../types';
+import { fetchTodosSsr } from './helpers';
 
-import { getErrorMessage } from '../../lib/common';
-
-const fetchTodosSsr = async (): Promise<[Todo[], null] | [null, string]> => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_TO_MOCK}/todos`);
-    const payload = (await res.json()) as Todo[];
-
-    return [payload, null];
-  } catch (error) {
-    return [null, getErrorMessage(error, 'fetch error')];
-  }
-};
-
-const TodosSsr = async () => {
+const TodosListSsr = async () => {
   noStore();
   const [data, error] = await fetchTodosSsr();
 
@@ -39,4 +26,4 @@ const TodosSsr = async () => {
   );
 };
 
-export default TodosSsr;
+export default TodosListSsr;
