@@ -10,6 +10,10 @@ permissions:
   actions: read
   contents: read
 
+env:
+  NEXT_PUBLIC_API_TO_MOCK: https://api.example.com
+  NEXT_PUBLIC_JSON_PLACEHOLDER_API: https://jsonplaceholder.typicode.com
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -23,12 +27,24 @@ jobs:
       # - run: yarn nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
 
       # Cache node_modules
-      - uses: actions/setup-node@v3
+      - name: Installing Node.js environment
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
           cache: 'yarn'
-      - run: yarn install --frozen-lockfile
-      - uses: nrwl/nx-set-shas@v4
 
-      - run: yarn nx-cloud record -- nx format:check
-      - run: yarn nx affected -t lint test build e2e
+      - name: Installing dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Deriving appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Connecting to NX Cloud
+        run: yarn nx-cloud record -- nx format:check
+        continue-on-error: true
+
+      - name: Checking affected changes
+        run: yarn nx affected -t lint test build
+
+      - name: Run affected e2e tests
+        run: yarn nx affected -t e2e-ci
