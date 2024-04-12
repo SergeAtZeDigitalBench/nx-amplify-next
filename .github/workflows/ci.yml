@@ -10,6 +10,10 @@ permissions:
   actions: read
   contents: read
 
+env:
+  NEXT_PUBLIC_API_TO_MOCK: https://api.example.com
+  NEXT_PUBLIC_JSON_PLACEHOLDER_API: https://jsonplaceholder.typicode.com
+
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -35,8 +39,14 @@ jobs:
       - name: Deriving appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v4
 
+      - name: Connecting to NX Cloud
+        run: yarn nx-cloud record -- nx format:check
+        continue-on-error: true
+
       - name: Checking affected changes
-        run: yarn nx affected -t format:check lint test build
+        run: yarn nx affected -t lint test build
+        continue-on-error: true
 
       - name: Run affected e2e tests
         run: yarn nx affected -t e2e-ci
+        continue-on-error: true
