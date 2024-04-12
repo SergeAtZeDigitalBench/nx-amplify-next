@@ -45,8 +45,6 @@ jobs:
 
       - name: Checking affected changes
         run: yarn nx affected -t lint test build
-        continue-on-error: true
 
       - name: Run affected e2e tests
         run: yarn nx affected -t e2e-ci
-        continue-on-error: true
