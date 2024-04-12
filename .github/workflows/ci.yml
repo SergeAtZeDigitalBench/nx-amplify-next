@@ -10,10 +10,6 @@ permissions:
   actions: read
   contents: read
 
-env:
-  NEXT_PUBLIC_API_TO_MOCK: https://api.example.com
-  NEXT_PUBLIC_JSON_PLACEHOLDER_API: https://jsonplaceholder.typicode.com
-
 jobs:
   main:
     runs-on: ubuntu-latest
