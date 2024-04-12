@@ -14,18 +14,8 @@
     "jest.config.ts",
     "**/*.spec.js",
     "**/*.test.js",
-    "**/*.spec.jsx",
-    "**/*.test.jsx",
     "**/*.spec.ts",
-    "**/*.test.ts",
-    "**/*.spec.tsx",
-    "**/*.test.tsx"
+    "**/*.test.ts"
   ],
-  "include": [
-    "src/**/*.js",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "specs/utils.spec.ts"
-  ]
+  "include": ["src/**/*.js", "src/**/*.ts", "specs/**/*.spec.ts"]
 }
