@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import BrowserMswProvider from '../providers/BrowserMswProvider';
+import QueryProvider from '../providers/QueryProvider';
 import Navigation from '../components/Navigation';
 import { albertSans, notoSans } from '../lib/fonts';
 import '../styles/global.css';
@@ -22,11 +24,14 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
     <html lang="en" className={`${notoSans.className} ${albertSans.variable}`}>
       <body>
         <BrowserMswProvider>
-          <header className=" bg-slate-900">
-            <Navigation />
-          </header>
-          <main className="max-w-5xl mx-auto">{children}</main>
-          <footer></footer>
+          <QueryProvider>
+            <header className=" bg-slate-900">
+              <Navigation />
+            </header>
+            <main className="max-w-5xl mx-auto">{children}</main>
+            <footer></footer>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryProvider>
         </BrowserMswProvider>
       </body>
     </html>
