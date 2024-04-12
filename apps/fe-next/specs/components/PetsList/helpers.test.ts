@@ -2,8 +2,11 @@ import { http, HttpResponse, delay } from 'msw';
 
 import type { HttpResponseResolver } from 'msw';
 
-import { serverWorker } from '../src/lib/msw/server';
-import { fetchPets, fetchPetsSsr } from '../src/components/PetsList/helpers';
+import { serverWorker } from '../../../src/lib/msw/server';
+import {
+  fetchPets,
+  fetchPetsSsr,
+} from '../../../src/components/PetsList/helpers';
 
 describe('PetsList/helpers', () => {
   const { petsResolverError } = getTestData();
@@ -35,6 +38,30 @@ describe('PetsList/helpers', () => {
         errorMessage = error instanceof Error ? error.message : 'default error';
       }
 
+      expect(errorMessage).toEqual('mock error message');
+    });
+  });
+
+  describe('fetchPetsSsr', () => {
+    it('should return tuple of [data, null] on success', async () => {
+      const [data, errorMessage] = await fetchPetsSsr();
+
+      expect(data).not.toBeNull();
+      expect(errorMessage).toBeNull();
+      expect(data).toHaveLength(3);
+    });
+
+    it('should return tuple of [null, errorMessage] on error', async () => {
+      serverWorker.use(
+        http.get('https://api.example.com/pets', petsResolverError, {
+          once: true,
+        })
+      );
+
+      const [data, errorMessage] = await fetchPetsSsr();
+
+      expect(data).toBeNull();
+      expect(errorMessage).not.toBeNull();
       expect(errorMessage).toEqual('mock error message');
     });
   });
