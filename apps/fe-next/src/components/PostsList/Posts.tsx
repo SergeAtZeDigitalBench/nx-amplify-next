@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 
 import { fetchPosts } from './helpers';
 
@@ -27,13 +28,16 @@ const Posts = ({ maxLength }: Props): JSX.Element => {
       )}
       <ul className=" grid grid-cols-gallery gap-2">
         {data &&
-          data.map(({ id, title, body }) => (
-            <li
-              key={id}
-              className="rounded-lg p-2 bg-slate-200 flex flex-col gap-1 justify-center items-center"
-            >
-              <h4 className="text-lg font-semibold text-blue-700">{title}</h4>
-              <p className="text-sm">{body}</p>
+          data.map(({ id, title }) => (
+            <li key={id}>
+              <Link
+                href={`/posts/${id}`}
+                className="w-full h-full min-h-[150px] rounded-lg p-2 bg-slate-200 hover:bg-slate-300 active:bg-slate-400 flex flex-col gap-1 justify-center items-center"
+              >
+                <h4 className="text-lg font-semibold text-center text-blue-700">
+                  {title}
+                </h4>
+              </Link>
             </li>
           ))}
       </ul>
