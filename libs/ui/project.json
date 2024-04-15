@@ -7,14 +7,21 @@
   "// targets": "to see all targets run: nx show project ui --web",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "options": {
-        "jestConfig": "libs/ui/jest.config.ts",
-        "setupFile": "libs/ui/jest.setup.ts"
+        "config": "libs/ui/vite.config.ts"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
       }
     },
     "test-watch": {
-      "command": "nx test ui --watch"
+      "command": "vitest",
+      "options": {
+        "config": "libs/ui/vite.config.ts"
+      }
     }
   }
 }

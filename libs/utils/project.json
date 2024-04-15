@@ -7,13 +7,21 @@
   "// targets": "to see all targets run: nx show project utils --web",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "options": {
-        "jestConfig": "libs/utils/jest.config.ts"
+        "config": "libs/utils/vite.config.ts"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
       }
     },
     "test-watch": {
-      "command": "nx test utils --watch"
+      "command": "vitest",
+      "options": {
+        "config": "libs/utils/vite.config.ts"
+      }
     }
   }
 }

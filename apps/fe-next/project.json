@@ -7,14 +7,21 @@
   "// targets": "to see all targets run: nx show project fe-next --web",
   "targets": {
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "options": {
-        "jestConfig": "apps/fe-next/jest.config.ts",
-        "setupFile": "apps/fe-next/jest.setup.ts"
+        "config": "apps/fe-next/vite.config.ts"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
       }
     },
     "test-watch": {
-      "command": "nx test fe-next --watch"
+      "command": "vitest",
+      "options": {
+        "config": "apps/fe-next/vite.config.ts"
+      }
     }
   }
 }
