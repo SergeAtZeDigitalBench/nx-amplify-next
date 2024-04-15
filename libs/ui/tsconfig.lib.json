@@ -12,7 +12,8 @@
       "vitest/globals",
       "vitest/importMeta",
       "vite/client"
-    ]
+    ],
+    "composite": true
   },
   "exclude": [
     "**/*.spec.js",

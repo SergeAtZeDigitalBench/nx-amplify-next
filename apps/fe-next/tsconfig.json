@@ -16,7 +16,13 @@
         "name": "next"
       }
     ],
-    "types": ["node"]
+    "types": [
+      "node",
+      "vitest",
+      "vitest/globals",
+      "vitest/importMeta",
+      "vite/client"
+    ]
   },
   "include": [
     "**/*.ts",
@@ -28,5 +34,5 @@
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": ["node_modules"]
 }

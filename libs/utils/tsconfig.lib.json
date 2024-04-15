@@ -7,12 +7,9 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
       "next",
-      "@nx/next/typings/image.d.ts",
-      "vitest",
-      "vitest/globals",
-      "vitest/importMeta",
-      "vite/client"
-    ]
+      "@nx/next/typings/image.d.ts"
+    ],
+    "composite": true
   },
   "exclude": ["**/*.spec.js", "**/*.test.js", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["src/**/*.js", "src/**/*.ts", "specs/**/*.spec.ts"]
