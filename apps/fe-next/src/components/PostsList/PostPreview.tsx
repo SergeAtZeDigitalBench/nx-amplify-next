@@ -2,8 +2,7 @@
 
 import { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-
-import type { Post } from '../../types';
+import { useQuery } from '@tanstack/react-query';
 
 import {
   Dialog,
@@ -12,14 +11,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@nx-amplify-next/ui';
+import { fetchPostbyId } from './helpers';
 
 type Props = {
-  post: Post | null;
-  error: string | null;
+  postId: string;
 };
 
-const PostPreview = ({ post, error }: Props): JSX.Element => {
+const PostPreview = ({ postId }: Props): JSX.Element => {
   const router = useRouter();
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['posts', postId],
+    queryFn: () => fetchPostbyId(postId),
+  });
 
   const handleDismiss = useCallback(() => {
     router.back();
@@ -51,7 +58,15 @@ const PostPreview = ({ post, error }: Props): JSX.Element => {
             <DialogDescription>{post.body}</DialogDescription>
           </DialogHeader>
         )}
-        {error && <DialogTitle className="text-red-700">{error}</DialogTitle>}
+        {error && (
+          <DialogTitle className="text-red-700">{error.message}</DialogTitle>
+        )}
+
+        {isLoading && (
+          <DialogTitle className="text-blue-700 text-center">
+            loading post...
+          </DialogTitle>
+        )}
       </DialogContent>
     </Dialog>
   );
