@@ -7,11 +7,14 @@
       "@nx/react/typings/cssmodule.d.ts",
       "@nx/react/typings/image.d.ts",
       "next",
-      "@nx/next/typings/image.d.ts"
+      "@nx/next/typings/image.d.ts",
+      "vitest",
+      "vitest/globals",
+      "vitest/importMeta",
+      "vite/client"
     ]
   },
   "exclude": [
-    "jest.config.ts",
     "**/*.spec.js",
     "**/*.test.js",
     "**/*.spec.jsx",
