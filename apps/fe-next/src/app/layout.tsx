@@ -1,6 +1,8 @@
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { BaselimeRum } from '@baselime/react-rum';
+
 import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import BrowserMswProvider from '../providers/BrowserMswProvider';
 import QueryProvider from '../providers/QueryProvider';
@@ -14,23 +16,27 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
-  if (process.env.NEXT_RUNTIME === 'nodejs') {
-    const { serverWorker } = await import('../lib/msw/server');
-
-    serverWorker.listen();
-  }
-
   return (
     <html lang="en" className={`${notoSans.className} ${albertSans.variable}`}>
       <body>
         <BrowserMswProvider>
           <QueryProvider>
-            <header className=" bg-slate-900">
-              <Navigation />
-            </header>
-            <main className="max-w-5xl mx-auto">{children}</main>
-            <footer></footer>
-            <ReactQueryDevtools initialIsOpen={false} />
+            <BaselimeRum
+              apiKey={process.env.NEXT_PUBLIC_BASELIME_API_KEY as string}
+              enableWebVitals={process.env.NODE_ENV === 'production'}
+              fallback={
+                <h1 className="fixed bottom-2 left-2 text-red-700">
+                  BaselimeRum error occured
+                </h1>
+              }
+            >
+              <header className=" bg-slate-900">
+                <Navigation />
+              </header>
+              <main className="max-w-5xl mx-auto">{children}</main>
+              <footer></footer>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </BaselimeRum>
           </QueryProvider>
         </BrowserMswProvider>
       </body>

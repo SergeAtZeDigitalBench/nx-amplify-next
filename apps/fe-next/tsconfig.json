@@ -22,7 +22,8 @@
       "vitest/globals",
       "vitest/importMeta",
       "vite/client"
-    ]
+    ],
+    "moduleResolution": "Bundler"
   },
   "include": [
     "**/*.ts",
