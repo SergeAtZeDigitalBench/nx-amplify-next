@@ -24,6 +24,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
             <BaselimeRum
               apiKey={process.env.NEXT_PUBLIC_BASELIME_API_KEY as string}
               enableWebVitals={process.env.NODE_ENV === 'production'}
+              service="nx-next-mongo-contentful"
               fallback={
                 <h1 className="fixed bottom-2 left-2 text-red-700">
                   BaselimeRum error occured
