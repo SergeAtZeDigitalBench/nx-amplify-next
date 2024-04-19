@@ -15,6 +15,11 @@ const nextConfig = {
   experimental: {
     instrumentationHook: true,
   },
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'i.imgur.com' },
+    ],
+  },
   webpack(config, { isServer }) {
     /**
      * @description temp fix from: https://github.com/mswjs/msw/issues/1801

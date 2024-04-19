@@ -6,6 +6,11 @@ export type PageProps<
   searchParams: Q;
 };
 
+export type ErrorPageProps = {
+  error: Error & { digest?: string };
+  reset: () => void;
+};
+
 export type Todo = {
   userId: number;
   id: number;

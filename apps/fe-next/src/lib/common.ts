@@ -35,3 +35,8 @@ export const getErrorMessage = (
 
   return messsage;
 };
+
+export const getErrorPageMessage = (error: Error & { digest?: string }) =>
+  error.digest
+    ? `[SERVER ERROR]: ${error.digest}`
+    : `[CLIENT ERROR]: ${error.message}`;
